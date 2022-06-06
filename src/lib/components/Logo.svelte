@@ -4,8 +4,8 @@
 
 <style>
     .logo {
-        width: 4.375rem;
-        height: 4.375rem;
+        width: fit-content;
+        height: auto;
         display: grid;
         place-content: center;
         position: relative;

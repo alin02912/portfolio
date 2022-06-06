@@ -1,6 +1,6 @@
 <script>
-    import { slide } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
+    import { selected } from '$lib/stores.js';
 
     const dispatch = createEventDispatcher();
 
@@ -8,12 +8,12 @@
         dispatch("hamburgerClicked", {
             text: "Hello!",
         });
-        selected = !selected;
+        selected.set($selected=!$selected);
     }
-    let selected = false;
+    // let selected = false;
 </script>
 
-<div class={selected ? "toggle selected" : "toggle"} on:click={handleClick}>
+<div class={$selected ? "toggle selected" : "toggle"} on:click={handleClick}>
     <span />
     <span />
     <span />
@@ -36,7 +36,7 @@
         background-color: #f5f5f1;
         position: absolute;
         border-radius: 0.25rem;
-        transition: 0.5s;
+        transition: 1s;
     }
     .toggle span:nth-child(1) {
         transform: translateY(-1rem);

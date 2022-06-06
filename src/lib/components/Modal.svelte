@@ -1,11 +1,19 @@
 <script>
+    import { fly, fade } from "svelte/transition";
+    import { createEventDispatcher } from "svelte";
 
-import { fly, fade } from 'svelte/transition'
+    const dispatch = createEventDispatcher();
+
+    function handleClick() {
+        dispatch("hamburgerClicked", {
+            text: "Hello!",
+        });
+    }
 </script>
 
-<div class="overlay" transition:fade="{{duration: 1000}}"></div>
-<div class="menu-container" transition:fly="{{ y: 200, duration: 1000 }}">
-    <ul>
+<div class="overlay" transition:fade={{ duration: 500 }} />
+<div class="menu-container" transition:fly={{ y: 200, duration: 1000 }}>
+    <ul on:click={handleClick}>
         <li><a href="/#About">About</a></li>
         <li><a href="/#Profile">Profile</a></li>
         <li><a href="/#Work">Work</a></li>
@@ -20,7 +28,7 @@ import { fly, fade } from 'svelte/transition'
         left: 0;
         bottom: 0;
         right: 0;
-        background-color: #0a0b0b88;
+        background-color: #0a0b0bdd;
     }
     .menu-container {
         position: fixed;
@@ -40,6 +48,6 @@ import { fly, fade } from 'svelte/transition'
     }
     a {
         text-decoration: none;
-        color: #F5F5F1;
+        color: #f5f5f1;
     }
 </style>
