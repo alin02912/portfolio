@@ -55,10 +55,11 @@ body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
-    font-family: 'Inter';
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #0a0b0b;
-    color: #fff;
+    color: #F5F5F1;
 }
+/* Other colors to consider: e9ecef (GRAY) 221F1F (black) 4263eb (blue)*/
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
