@@ -29,14 +29,14 @@
         bottom: 0;
         right: 0;
         background-color: #0a0b0bcc;
-        z-index: 1;
+        z-index: 900;
     }
     .menu-container {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 2;
+        z-index: 901;
     }
     ul {
         padding: 0;
