@@ -15,9 +15,9 @@
 <div class="menu-container" transition:fly={{ y: 200, duration: 1000 }}>
     <ul on:click={handleClick}>
         <li><a href="/#About">About</a></li>
-        <li><a href="/#Profile">Profile</a></li>
-        <li><a href="/#Work">Work</a></li>
-        <li><a href="/#Contact">Contact</a></li>
+        <li><a href="/#Work-history">Work History</a></li>
+        <li><a href="/#Resume">Resume</a></li>
+        <!-- <li><a href="/#Contact">Contact</a></li> -->
     </ul>
 </div>
 
