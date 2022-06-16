@@ -25,7 +25,7 @@
             id: 1,
             name: "LearnStyle",
             description:
-                "LearnStyle is all about transforming the life trajectory of children with learning exceptionalities. They do that by teaching students how to leverage assistive technology and learning strategies to have an equal access to education and become independent learners.",
+                "LearnStyle is all about transforming the life trajectory of children with learning exceptionalities. They do that by coaching students on how to leverage assistive technology with learning strategies to have an equal access to education and become independent learners.",
             title: "Senior Educator & Technology Learning Consultant",
             //duration: "Sep 2021 - Present\nMar 2018 - Sep 2021: Educator & Tech. Coach",
             duration: "Mar 2018 - Present",
@@ -192,12 +192,12 @@
         display: flex;
         justify-content: flex-start;
         padding: 0;
+        align-items: flex-start;
     }
     ul.workplaces > li {
         color: #6b6b6b;
         font-size: 1.2rem;
         margin-right: 2rem;
-        height: 2rem;
         list-style-type: none;
         cursor: pointer;
         text-align: center;
