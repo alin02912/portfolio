@@ -150,6 +150,20 @@
 </section>
 
 <style>
+    .main-content > h1 {
+        width: 10ch;
+        margin-right: 0;
+        animation: typing 3s steps(10);
+        font-family: monospace;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+    }
     .resume {
         margin-bottom: 10rem;
     }
