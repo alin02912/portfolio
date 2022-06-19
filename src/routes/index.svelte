@@ -15,7 +15,7 @@
             title: "Learning Design Intern",
             duration: "Jan 2022 - Present",
             tasks: [
-                "Created accessible, SCORM-compliant e-learning content using a number of authoring tools, including Storyline 360, Camtasia & Snagit.",
+                "Created accessible, SCORM-compliant e-learning content using a number of authoring tools, such as Storyline 360, Camtasia & Snagit, as well as using plain HTML/CSS and JavaScript.",
                 "Integrated learning content with Geotab's new Learning Management System (LMS) by writing JavaScript code that extend the functionality of content made with authoring tools.",
                 "Wrote automation scripts that assist with the transition to the new LMS and facilitated the management of it. This includes scripts that crawl through the course catalogue and collect course information that are not collectible with native LMS features.",
             ],
@@ -54,9 +54,49 @@
     ];
     let workplaceID = 0;
     let showResume;
+
+    //let threshold = Array.from({ length: 10 }, (_, i) => (i > 0 ? i / 10 : i));
+
+    let options = {
+        root: null,
+        rootMargin: "-30% 0px -60% 0px",
+        threshold: 0,
+    };
+
+    function observeMe(node) {
+        let observer = new IntersectionObserver(changeOpacity, options);
+        //let prevThreshold = 0;
+        let faded = true;
+        observer.observe(node);
+        function changeOpacity(entries) {
+            entries.forEach((entry) => {
+                // if (entry.intersectionRatio > prevThreshold) {
+                //     node.style.opacity = entry.intersectionRatio.toFixed(2);
+                // } else {
+                //     node.style.opacity = entry.intersectionRatio.toFixed(2);
+                // }
+                // prevThreshold = entry.intersectionRatio;
+
+                if (entry.isIntersecting && faded) {
+                    node.animate([{opacity: 1}],{duration:1000,fill:"forwards"});
+                    faded = false;
+                } else if (!entry.isIntersecting && !faded) {
+                    node.animate([{opacity: 0.3}],{duration:1000,fill:"forwards"});
+                    faded = true;
+                } else {
+                    return
+                }
+            });
+        }
+        return {
+            destroy() {
+                observer.disconnect();
+            },
+        };
+    }
 </script>
 
-<section class="main-content" id="main-content">
+<section use:observeMe class="main-content" id="main-content">
     <p>Hi! My name is</p>
     <h1>Ali Nasser</h1>
     <h2>Learning Desinger & AT Specialist</h2>
@@ -69,7 +109,7 @@
     </p>
 </section>
 
-<section class="about" id="About">
+<section use:observeMe class="about" id="About">
     <h3><span>01: </span>About Myself</h3>
     <p>
         Hello! My name is Ali Nasser and I enjoy combining my knowledge in
@@ -111,7 +151,7 @@
     </div>
 </section>
 
-<section class="work-history" id="Work-history">
+<section use:observeMe class="work-history" id="Work-history">
     <h3><span>02: </span>Here's where I've worked</h3>
     <ul class="workplaces">
         {#each workplaces as { id, name }}
@@ -128,28 +168,34 @@
     <Workplace {...workplaces[workplaceID]} />
 </section>
 
-<section class="resume" id="Resume">
+<section use:observeMe class="resume" id="Resume">
     <h3><span>03: </span>Resume</h3>
     <div class="button">
-        <p on:click={() => (showResume = !showResume)}
-            >{showResume ? "Hide resume" : "Show resume"}</p
-        >
+        <p on:click={() => (showResume = !showResume)}>
+            {showResume ? "Hide resume" : "Show resume"}
+        </p>
     </div>
     <div class="resume-object-container">
-    {#if showResume}
-        <object
-            title="resume"
-            type="application/pdf"
-            data="/Ali_Nasser_Resume_pdf.pdf"
-            width="700px"
-            height="700px"
-            transition:fade="{{duration:1000}}"
-        />
-    {/if}
-</div>
+        {#if showResume}
+            <object
+                title="resume"
+                type="application/pdf"
+                data="/Ali_Nasser_Resume_pdf.pdf"
+                width="700px"
+                height="700px"
+                transition:fade={{ duration: 1000 }}
+            />
+        {/if}
+    </div>
 </section>
 
 <style>
+    section {
+        opacity: 0.3;
+    }
+    .work-history {
+        height: 55rem;
+    }
     .main-content > h1 {
         width: 10ch;
         margin-right: 0;
@@ -199,7 +245,7 @@
         transition: 1s;
         z-index: inherit;
     }
-    .resume .button p:hover:not(.active)::before{
+    .resume .button p:hover:not(.active)::before {
         transform: scaleX(0);
     }
     ul.workplaces {
@@ -235,6 +281,7 @@
     }
     ul.workplaces > li.active {
         color: #fff;
+        pointer-events: none;
         cursor: default;
     }
     ul.workplaces > li:hover:not(.active)::before {
@@ -286,5 +333,8 @@
         .toolsList {
             flex-direction: column;
         }
+        .work-history {
+        height: 87rem;
+    }
     }
 </style>

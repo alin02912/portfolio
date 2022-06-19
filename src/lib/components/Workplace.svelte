@@ -8,8 +8,9 @@
     export let tasks = ["Task 1", "Task 2", "Task 3"];
     export let logo = "some image";
 </script>
+<div class="transition-container">
 {#key id}
-<section  in:fade={{ duration: 1500, delay: 600 }} out:fade={{duration: 400}}>
+<section  in:fade={{ duration: 1500, delay: 600}} out:fade={{duration: 400}}>
     <p class="description">
         {description}
     </p>
@@ -34,8 +35,17 @@
     </div>
 </section>
 {/key}
-
+</div>
 <style>
+    .transition-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .transition-container > * {
+        grid-column: 1;
+        grid-row: 1;
+    }
     .taskContainer {
         display: flex;
         gap: 1rem;
