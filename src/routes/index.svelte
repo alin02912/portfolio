@@ -55,8 +55,6 @@
     let workplaceID = 0;
     let showResume;
 
-    //let threshold = Array.from({ length: 10 }, (_, i) => (i > 0 ? i / 10 : i));
-
     let options = {
         root: null,
         rootMargin: "-30% 0px -60% 0px",
@@ -65,26 +63,20 @@
 
     function observeMe(node) {
         let observer = new IntersectionObserver(changeOpacity, options);
-        //let prevThreshold = 0;
         let faded = true;
         observer.observe(node);
         function changeOpacity(entries) {
             entries.forEach((entry) => {
-                // if (entry.intersectionRatio > prevThreshold) {
-                //     node.style.opacity = entry.intersectionRatio.toFixed(2);
-                // } else {
-                //     node.style.opacity = entry.intersectionRatio.toFixed(2);
-                // }
-                // prevThreshold = entry.intersectionRatio;
-
                 if (entry.isIntersecting && faded) {
                     node.animate([{opacity: 1}],{duration:1000,fill:"forwards"});
                     faded = false;
+                    return
                 } else if (!entry.isIntersecting && !faded) {
                     node.animate([{opacity: 0.3}],{duration:1000,fill:"forwards"});
                     faded = true;
-                } else {
                     return
+                } else {
+
                 }
             });
         }

@@ -45,6 +45,7 @@
         left: 0;
         right: 0;
         margin: 0 0;
+        height: max(5vh, 5rem);
         display: flex;
         justify-content: space-between;
         backdrop-filter: blur(4px);
