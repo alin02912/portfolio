@@ -1,10 +1,9 @@
 <script>
     import Workplace from "$lib/components/Workplace.svelte";
-    import Layout from "./__layout.svelte";
     import { geotabLogo } from "$lib/stores.js";
     import { LearnStyleLogo } from "$lib/stores.js";
     import { EtagLogo } from "$lib/stores.js";
-    import { fly, fade } from "svelte/transition";
+    import { fade } from "svelte/transition";
 
     let workplaces = [
         {
@@ -16,7 +15,7 @@
             duration: "Jan 2022 - Present",
             tasks: [
                 "Created accessible, SCORM-compliant e-learning content using a number of authoring tools, such as Storyline 360, Camtasia & Snagit, as well as using plain HTML/CSS and JavaScript.",
-                "Integrated learning content with Geotab's new Learning Management System (LMS) by writing JavaScript code that extend the functionality of content made with authoring tools.",
+                "Integrated learning content with Geotab's new Learning Management System (LMS) by writing JavaScript code that extends the functionality of the content made with authoring tools.",
                 "Wrote automation scripts that assist with the transition to the new LMS and facilitated the management of it. This includes scripts that crawl through the course catalogue and collect course information that are not collectible with native LMS features.",
             ],
             logo: `${geotabLogo}`,
@@ -116,7 +115,7 @@
     <p>
         Over the years, I have had the privilege to work with students with
         learning exceptionalities in the Peel and Halton Catholic school boards,
-        a retail tech startup, an advertising agency and few startups. My focus
+        a tech startup, at university and a few volunteer organizations. My focus
         these days is to create accessible learning content for adult learners
         in the field of telemetrics.
     </p>

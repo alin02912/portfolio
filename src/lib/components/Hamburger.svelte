@@ -10,7 +10,6 @@
         });
         selected.set($selected=!$selected);
     }
-    // let selected = false;
 </script>
 
 <div class={$selected ? "toggle selected" : "toggle"} on:click={handleClick}>
