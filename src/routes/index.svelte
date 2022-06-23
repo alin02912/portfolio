@@ -4,6 +4,10 @@
     import { LearnStyleLogo } from "$lib/stores.js";
     import { EtagLogo } from "$lib/stores.js";
     import { fade } from "svelte/transition";
+    import Automation from "$lib/components/Automation.svelte";
+    import CarGame from "$lib/components/CarGame.svelte";
+    import Cancellation from "$lib/components/Cancellation.svelte";
+import { component_subscribe } from "svelte/internal";
 
     let workplaces = [
         {
@@ -67,15 +71,20 @@
         function changeOpacity(entries) {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && faded) {
-                    node.animate([{opacity: 1}],{duration:1000,fill:"forwards"});
+                    node.animate([{ opacity: 1 }], {
+                        duration: 1000,
+                        fill: "forwards",
+                    });
                     faded = false;
-                    return
+                    return;
                 } else if (!entry.isIntersecting && !faded) {
-                    node.animate([{opacity: 0.3}],{duration:1000,fill:"forwards"});
+                    node.animate([{ opacity: 0.3 }], {
+                        duration: 1000,
+                        fill: "forwards",
+                    });
                     faded = true;
-                    return
+                    return;
                 } else {
-
                 }
             });
         }
@@ -85,6 +94,12 @@
             },
         };
     }
+    let projectsArray = [
+        { name: "Automation Project", component: "Automation" },
+        { name: "Car Game", component: "CarGame" },
+        { name: "Cancellation Course", component: "Cancellation" },
+    ];
+    let selectedProject;
 </script>
 
 <section use:observeMe class="main-content" id="main-content">
@@ -115,9 +130,9 @@
     <p>
         Over the years, I have had the privilege to work with students with
         learning exceptionalities in the Peel and Halton Catholic school boards,
-        a tech startup, at university and a few volunteer organizations. My focus
-        these days is to create accessible learning content for adult learners
-        in the field of telemetrics.
+        a tech startup, at university and a few volunteer organizations. My
+        focus these days is to create accessible learning content for adult
+        learners in the field of telemetrics.
     </p>
     <p>Here is a snapshot of the tools and strategies that I used recently:</p>
     <div class="toolsList">
@@ -159,8 +174,35 @@
     <Workplace {...workplaces[workplaceID]} />
 </section>
 
+<section use:observeMe class="projects" id="projects">
+    <h3><span>03: </span>Projects</h3>
+    <ul class="projects-list workplaces">
+        {#each projectsArray as project,i}
+            <li
+                
+                on:click={() => {(selectedProject = project.component)}}
+                class="{selectedProject===project.component ? "active" : ''}"
+            >
+                {project.name}
+            </li>
+        {/each}
+    </ul>
+    <div class="projects-container">
+        
+        {#if selectedProject === "Automation"}
+            <Automation />
+
+        {:else if selectedProject === "CarGame"}
+            <CarGame />
+
+        {:else if selectedProject === "Cancellation"}
+            <Cancellation />
+        {/if}
+    </div>
+</section>
+
 <section use:observeMe class="resume" id="Resume">
-    <h3><span>03: </span>Resume</h3>
+    <h3><span>04: </span>Resume</h3>
     <div class="button">
         <p on:click={() => (showResume = !showResume)}>
             {showResume ? "Hide resume" : "Show resume"}
@@ -181,6 +223,18 @@
 </section>
 
 <style>
+    .projects {
+        height: 55rem;
+    }
+    .projects-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .projects-container > :global(*) {
+        grid-column: 1;
+        grid-row: 1;
+    }
     section {
         opacity: 0.3;
     }
@@ -325,7 +379,10 @@
             flex-direction: column;
         }
         .work-history {
-        height: 87rem;
-    }
+            height: 87rem;
+        }
+        .projects {
+            height: 87rem;
+        }
     }
 </style>

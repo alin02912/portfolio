@@ -16,8 +16,9 @@
     <ul on:click={handleClick}>
         <li><a href="/#About">About</a></li>
         <li><a href="/#Work-history">Work History</a></li>
+        <li><a href="/#projects">Projects</a></li>
         <li><a href="/#Resume">Resume</a></li>
-        <!-- <li><a href="/#Contact">Contact</a></li> -->
+        
     </ul>
 </div>
 
