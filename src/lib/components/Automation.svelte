@@ -22,7 +22,7 @@
             { duration: 4000, easing: `steps(${textLength})`, fill: "forwards" }
         );
         ternaryAnimation.onfinish = () => {
-            if (!keyboard) return
+            if (!keyboard) return;
             let keyboardAnimation = keyboard.animate(
                 [
                     { width: 0, visibility: "visible" },
@@ -38,7 +38,7 @@
                 }
             );
             keyboardAnimation.onfinish = () => {
-                if (!leaderboard) return
+                if (!leaderboard) return;
                 let leaderboardAnimation = leaderboard.animate(
                     [
                         { width: 0, visibility: "visible" },
@@ -89,7 +89,9 @@
             In this project, I created an automation script that crawls through
             the LMS in order to modify course settings. This allowed 1,000s of
             courses to have their settings controlled progromatically and
-            adjusted within a short period of time.
+            adjusted within a short period of time. This project also involved
+            automatically collecting course attributes that were not collectible
+            with LMS's built-in reporting tools.
         </p>
         <ul>
             Tools used:
