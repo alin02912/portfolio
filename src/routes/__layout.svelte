@@ -3,9 +3,12 @@
     import Hamburger from "$lib/components/Hamburger.svelte";
     import Modal from "$lib/components/Modal.svelte";
     import Logo from "$lib/components/Logo.svelte";
+    import HeaderTwo from "../lib/components/HeaderTwo.svelte";
     import { selected } from "$lib/stores.js";
     let showModal = false;
+    let windowWidth;
 </script>
+<svelte:window bind:innerWidth="{windowWidth}"/>
 
 {#if showModal}
     <Modal
@@ -16,13 +19,16 @@
     />
 {/if}
 <section class="grid">
-    <header>
+    <header class="{windowWidth <= 768 ? "headerOne" : "headerOne hidden" }">
         <Logo />
         <Hamburger
             on:hamburgerClicked={() => {
                 showModal = !showModal;
             }}
         />
+    </header>
+    <header class="{windowWidth > 768 ? "headerTwo" : "headerTwo hidden" }">
+        <HeaderTwo />
     </header>
     <main>
         <slot />
@@ -38,7 +44,20 @@
                 1fr
             );
     }
-    header {
+    .hidden {
+        display: none;
+    }
+    .headerTwo {
+        z-index: 902;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 0;
+        height: max(5%, 5rem);
+        backdrop-filter: blur(4px);
+    }
+    .headerOne {
         z-index: 902;
         position: fixed;
         top: 0;
@@ -49,6 +68,9 @@
         display: flex;
         justify-content: space-between;
         backdrop-filter: blur(4px);
+    }
+    .hidden {
+        display: none;
     }
     .grid > * {
         grid-column: 2;

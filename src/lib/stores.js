@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const selected = writable(false);
+export const activeHeader = writable(undefined);
 
 
 export const geotabLogo = `<svg

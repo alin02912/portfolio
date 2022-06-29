@@ -17,7 +17,7 @@
         let ternaryAnimation = ternary.animate(
             [
                 { width: 0, visibility: "visible" },
-                { width: `${textLength}ch`, visibility: "visible" },
+                { width: `${textLength - 10}ch`, visibility: "visible" },
             ],
             { duration: 4000, easing: `steps(${textLength})`, fill: "forwards" }
         );
@@ -64,16 +64,11 @@
                 };
             };
         };
-        // return function () {
-        //     document.getAnimations().forEach(function (animation) {
-        //         animation.cancel();
-        //     });
-        // };
     });
 
     onDestroy(() => {
         document.getAnimations().forEach(function (animation) {
-            // animation.cancel();
+           
             try {
                 keyboardAnimation.cancel();
                 leaderboardAnimation.cancel();
@@ -102,7 +97,6 @@
     <div class="animationHalf">
         <div
             bind:this={ternary}
-            style="--textLength:{textLength}"
             class="ternary"
         >
             let points = courses.length > 5 ? <span
@@ -163,6 +157,18 @@
         section {
             display: flex;
             flex-direction: column;
+            flex-wrap: wrap;
+        }
+        .animationHalf > * {
+            font-size: 0.8rem;
+        }
+        .animationHalf .leaderboard-border {
+            width: 6rem;
+            padding-inline: 0.2rem;
+        }
+        .animationHalf .leaderboard-border .leaderboard {
+            font-size: 0.8rem;
+            
         }
     }
 </style>

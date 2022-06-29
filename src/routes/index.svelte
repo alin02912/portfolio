@@ -7,7 +7,7 @@
     import Automation from "$lib/components/Automation.svelte";
     import CarGame from "$lib/components/CarGame.svelte";
     import Cancellation from "$lib/components/Cancellation.svelte";
-import { component_subscribe } from "svelte/internal";
+    import { activeHeader } from "$lib/stores.js"
 
     let workplaces = [
         {
@@ -60,30 +60,31 @@ import { component_subscribe } from "svelte/internal";
 
     let options = {
         root: null,
-        rootMargin: "-30% 0px -60% 0px",
+        rootMargin: "-30% 0% -60% 0%",
         threshold: 0,
     };
 
     function observeMe(node) {
         let observer = new IntersectionObserver(changeOpacity, options);
-        let faded = true;
+        let firstTime = true;
         observer.observe(node);
-        function changeOpacity(entries) {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && faded) {
-                    node.animate([{ opacity: 1 }], {
-                        duration: 1000,
+        async function changeOpacity(entries) {
+            entries.forEach(async (entry) => {
+                if (entry.isIntersecting) {
+                    let anim = entry.target.animate([{ opacity: 0.3 }, { opacity: 1 }], {
+                        duration: 500,
                         fill: "forwards",
                     });
-                    faded = false;
-                    return;
-                } else if (!entry.isIntersecting && !faded) {
-                    node.animate([{ opacity: 0.3 }], {
-                        duration: 1000,
+                    //await anim.finished;
+                    anim.commitStyles();
+                    activeHeader.set(node.dataset.name)
+                } else if (!entry.isIntersecting) {
+                    let anim = entry.target.animate([{ opacity: 1 }, { opacity: 0.3 }], {
+                        duration: 500,
                         fill: "forwards",
                     });
-                    faded = true;
-                    return;
+                    //await anim.finished;
+                    anim.commitStyles();
                 } else {
                 }
             });
@@ -102,7 +103,7 @@ import { component_subscribe } from "svelte/internal";
     let selectedProject;
 </script>
 
-<section use:observeMe class="main-content" id="main-content">
+<section use:observeMe class="main-content" id="main-content" data-name="Main">
     <p>Hi! My name is</p>
     <h1>Ali Nasser</h1>
     <h2>Learning Desinger & AT Specialist</h2>
@@ -115,7 +116,7 @@ import { component_subscribe } from "svelte/internal";
     </p>
 </section>
 
-<section use:observeMe class="about" id="About">
+<section use:observeMe class="about" id="About" data-name="About">
     <h3><span>01: </span>About Myself</h3>
     <p>
         Hello! My name is Ali Nasser and I enjoy combining my knowledge in
@@ -157,7 +158,7 @@ import { component_subscribe } from "svelte/internal";
     </div>
 </section>
 
-<section use:observeMe class="work-history" id="Work-history">
+<section use:observeMe class="work-history" id="Work-history" data-name="Work History">
     <h3><span>02: </span>Here's where I've worked</h3>
     <ul class="workplaces">
         {#each workplaces as { id, name }}
@@ -174,34 +175,32 @@ import { component_subscribe } from "svelte/internal";
     <Workplace {...workplaces[workplaceID]} />
 </section>
 
-<section use:observeMe class="projects" id="projects">
+<section use:observeMe class="projects" id="projects" data-name="Projects">
     <h3><span>03: </span>Projects</h3>
     <ul class="projects-list workplaces">
-        {#each projectsArray as project,i}
+        {#each projectsArray as project, i}
             <li
-                
-                on:click={() => {(selectedProject = project.component)}}
-                class="{selectedProject===project.component ? "active" : ''}"
+                on:click={() => {
+                    selectedProject = project.component;
+                }}
+                class={selectedProject === project.component ? "active" : ""}
             >
                 {project.name}
             </li>
         {/each}
     </ul>
     <div class="projects-container">
-        
         {#if selectedProject === "Automation"}
             <Automation />
-
         {:else if selectedProject === "CarGame"}
             <CarGame />
-
         {:else if selectedProject === "Cancellation"}
             <Cancellation />
         {/if}
     </div>
 </section>
 
-<section use:observeMe class="resume" id="Resume">
+<section use:observeMe class="resume" id="Resume" data-name="Resume">
     <h3><span>04: </span>Resume</h3>
     <div class="button">
         <p on:click={() => (showResume = !showResume)}>
@@ -224,7 +223,7 @@ import { component_subscribe } from "svelte/internal";
 
 <style>
     .projects {
-        height: 55rem;
+        height: 45rem;
     }
     .projects-container {
         display: grid;
@@ -235,9 +234,9 @@ import { component_subscribe } from "svelte/internal";
         grid-column: 1;
         grid-row: 1;
     }
-    section {
-        opacity: 0.3;
-    }
+    /* section {
+        opacity: 0.1;
+    } */
     .work-history {
         height: 55rem;
     }
